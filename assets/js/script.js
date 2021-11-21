@@ -32,7 +32,7 @@ function runGame(gameType){
     if (gameType === "addition") {
         displayAdditionQuestion(num1, num2);
     } else {
-        alert(`Unknown game type: ${gameType}` );
+        alert(`Unknown game type: ${gameType}`);
         throw `Unknown game type: ${gameType}. Aborting!`;
     }
 
@@ -50,7 +50,10 @@ function checkAnswer(){
     
     if(isCorrect) {
         alert("Hey! You got it right! :D ");
-    } else {alert(`Awww... You answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}!`);
+        incrementScore();
+    } else {
+        alert(`Awww... You answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}!`);
+        incrementWrongAnswer();
 }
 
    runGame(calculatedAnswer[1]);
@@ -67,13 +70,13 @@ function calculateCorrectAnswer(){
     //get inner text and pass it and returns it as a integer with parseInt
     //By default, when JavaScript gets data from the dom it returns it as a string so change from string to number
 
-    let operand1 = parseInt(docmuent.getElementById('operand1').innerText);
-    let operand2 = parsIent(docmuent.getElementById('operand2').innerText);
+    let operand1 = parseInt(document.getElementById('operand1').innerText);
+    let operand2 = parseInt(document.getElementById('operand2').innerText);
     let operator = document.getElementById('operator').innerText;
 
     if (operator === "+") {
         //return and array if operator is the mentioned operator
-        return [operand1, operand2, "addition"]
+        return [operand1 + operand2, "addition"]
     } else {
         alert (`unimplemented operator ${operator}`);
         throw `unimplemented operator ${operator}. Aborting!`;
@@ -81,12 +84,23 @@ function calculateCorrectAnswer(){
 
 }
 
+/**
+ * Gets the current score from the DOM and increments it by 1
+ */
 function incrementScore(){
+    let oldScore = parseInt(document.getElementById("score").innerText);
+    document.getElementById("score").innerText = ++oldScore;
 
 }
 
+/**
+ * Gets the current tally of incorrect answers from the DOM and increments it by 1
+ */
+function incrementWrongAnswer(){
+    let oldScore = parseInt(document.getElementById("incorrect").innerText);
+    document.getElementById("incorrect").innerText = ++oldScore;
 
-function incrementWrongAnswer(){}
+}
 
 function displayAdditionQuestion(operand1, operand2){
     
