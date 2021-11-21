@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
     for (let button of buttons) {
         button.addEventListener("click", function() {
             if (this.getAttribute("data-type") === "submit") {
-                alert("You clicked Submit!");
+                checkAnswer();
             } else {
                 let gameType = this.getAttribute("data-type");
                 runGame(gameType);
@@ -37,14 +37,47 @@ function runGame(gameType){
     }
 
 }
-
+/**
+ * 
+ * checks answer against first element in 
+ * the returned calculatecorrectAnswer array
+ */
 function checkAnswer(){
+
+    let userAnswer = parseInt(document.getElementById("answer-box").value);
+    let calculatedAnswer = calculateCorrectAnswer();
+    let isCorrect = userAnswer === calculatedAnswer[0];
+    
+    if(isCorrect) {
+        alert("Hey! You got it right! :D ");
+    } else {alert(`Awww... You answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}!`);
+}
+
+   runGame(calculatedAnswer[1]);
 
 }
 
 
-
+/**
+ * Gets the operands (numbers) and the operators (+, -, x, /)
+ * directly from DOM and returns correct answer
+ */
 function calculateCorrectAnswer(){
+    //read variale form dom and store in variable.
+    //get inner text and pass it and returns it as a integer with parseInt
+    //By default, when JavaScript gets data from the dom it returns it as a string so change from string to number
+
+    let operand1 = parseInt(docmuent.getElementById('operand1').innerText);
+    let operand2 = parsIent(docmuent.getElementById('operand2').innerText);
+    let operator = document.getElementById('operator').innerText;
+
+    if (operator === "+") {
+        //return and array if operator is the mentioned operator
+        return [operand1, operand2, "addition"]
+    } else {
+        alert (`unimplemented operator ${operator}`);
+        throw `unimplemented operator ${operator}. Aborting!`;
+    }
 
 }
 
