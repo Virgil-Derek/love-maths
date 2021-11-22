@@ -15,9 +15,15 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    document.getElementById("answer-box").addEventListener("keydown", function(event){
+        if (event.key === "Enter") {
+            checkAnswer();
+        }
+    });
+
     runGame("addition");
     runGame("multiply");
-    runGame("subtraction");
+    runGame("subtract");
 });
 
 /**
@@ -25,6 +31,9 @@ document.addEventListener("DOMContentLoaded", function() {
  * and after user's answer has been processed
  */
 function runGame(gameType){
+    document.getElementById("answer-box").value = "";
+    document.getElementById("answer-box").focus();
+
     //Creates 2 random numbers between 1 and 25
     //Math.random method is used to generate the random numbers.
     //Math.floor rounds the numbers to an integer; the whole method runs 25 times (Beware for capitalization in Math)
